@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @yield('meta')
 
-    <title>SIPABP | @yield('pageTitle')</title>
+    <title>{{ config('app.name') }} | @yield('pageTitle')</title>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @yield('style')

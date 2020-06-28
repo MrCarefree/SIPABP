@@ -1,6 +1,5 @@
 window._ = require('lodash');
 window.$ = window.jQuery = require('jquery');
-window.Pace = require('./pace.min'); // loading screen
 window.Swal = require('sweetalert2');
 window.Toast = Swal.mixin({
     toast: true,

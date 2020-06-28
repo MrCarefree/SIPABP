@@ -13,8 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function (){
+Route::get('', function (){
     return redirect()->route('login');
 });
 
-Route::get('/login', 'LoginController@index')->name('login');
+Route::prefix('login')->name('login')->group(function (){
+    Route::get('', 'LoginController@index');
+    Route::post('/process', 'LoginController@login')->name('.process');
+});
+
+Route::post('logout', 'LoginController@logout')->name('logout');
+
+Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+
+Route::prefix('user')->name('user')->group(function (){
+    Route::get('', 'UserController@index');
+});

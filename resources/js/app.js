@@ -1,5 +1,6 @@
 // global variable for require js
 require('./bootstrap');
+require('bootstrap');
 
 // admin lte dependencies
 require('popper.js');

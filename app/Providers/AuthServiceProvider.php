@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('access-menu', function($user, $menu){
+            if($menu == 'alat_bahan'){
+                return true;
+            }elseif ($menu == 'user'){
+                return $user->role == 'administrator';
+            }
+        });
     }
 }

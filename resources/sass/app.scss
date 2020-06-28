@@ -2,3 +2,29 @@
 @import "~@fortawesome/fontawesome-free/css/all.css";
 @import "~jquery-ui/themes/base/all.css";
 @import "~datatables.net-bs4/css/dataTables.bootstrap4.css";
+@import "~icheck-bootstrap/icheck-bootstrap.css";
+@import "~bootstrap/scss/_functions.scss";
+@import "~bootstrap/scss/_variables.scss";
+@import "~bootstrap/scss/mixins/_breakpoints.scss";
+
+/*html {
+    font-size: 1rem !important;
+}
+
+@include media-breakpoint-up(sm){
+    html {
+        font-size: 1.2rem !important;
+    }
+}
+
+@include media-breakpoint-up(md){
+    html {
+        font-size: 1rem !important;
+    }
+}
+
+@include media-breakpoint-up(lg){
+    html {
+        font-size: 1rem !important;
+    }
+}*/
