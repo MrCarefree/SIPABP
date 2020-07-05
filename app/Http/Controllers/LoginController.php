@@ -23,16 +23,17 @@ class LoginController extends Controller
         return view('login/login');
     }
 
-    public function login(LoginPost $request){
-        if (method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts($request)){
+    public function login(LoginPost $request)
+    {
+        if (method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
             return $this->sendLockoutResponse($request);
         }
 
-        if (Auth::guard()->attempt($request->only('username', 'password'), $request->only('remember_me'))){
+        if (Auth::guard()->attempt($request->only('username', 'password'), $request->only('remember_me'))) {
             $this->clearLoginAttempts($request);
             return response(['status' => true, 'redirect' => redirect()->intended('dashboard')->getTargetUrl()]);
-        }else{
+        } else {
             $this->incrementLoginAttempts($request);
             return response(['errors' => 'Username atau password salah'], Response::HTTP_BAD_REQUEST);
         }

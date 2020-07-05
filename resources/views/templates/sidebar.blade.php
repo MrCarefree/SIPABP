@@ -22,8 +22,8 @@
                 <i class="fas fa-user fa-3x my-auto"></i>
             </div>
             <div class="info">
-                <p class="m-0" style="color: #C2C7D0">{{ Auth::user()->name }}</p>
-                <small style="color: #C2C7D0">{{ Auth::user()->role }}</small>
+                <p class="m-0" style="color: #C2C7D0">{{ ucwords(Auth::user()->name) }}</p>
+                <small style="color: #C2C7D0">{{ ucwords(Auth::user()->role) }}</small>
             </div>
         </div>
 
@@ -33,12 +33,12 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-                @can('access-menu', 'user')
+                @can('access-menu')
                 <li class="nav-item">
                     <a href="{{ route('user') }}" class="nav-link {{ request()->routeIs('user') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user"></i>
@@ -46,7 +46,6 @@
                     </a>
                 </li>
                 @endcan
-                @can('access-menu', 'alat_bahan')
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link {{ request()->routeIs('alat_bahan*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-file-invoice"></i>
@@ -70,6 +69,13 @@
                         </li>
                     </ul>
                 </li>
+                @can('access-menu', 'wakil direktur')
+                    <li class="nav-item">
+                        <a href="#" class="nav-link {{ request()->routeIs('pagu') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>Pagu</p>
+                        </a>
+                    </li>
                 @endcan
                 <li class="nav-item">
                     <a href="javascript:" onclick="$('#logout_form').submit()" class="nav-link">

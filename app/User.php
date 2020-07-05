@@ -26,4 +26,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isAdministrator(){
+        return $this->role == 'administrator';
+    }
+
+    public function scopeNotAdministrator($query){
+        return $query->where('role', '<>', 'administrator');
+    }
 }

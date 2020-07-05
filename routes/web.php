@@ -28,4 +28,5 @@ Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::prefix('user')->name('user')->group(function (){
     Route::get('', 'UserController@index');
+    Route::get('/datatable', 'UserController@datatable')->name('.datatable');
 });

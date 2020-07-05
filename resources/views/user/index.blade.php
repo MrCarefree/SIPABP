@@ -34,7 +34,18 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="user_table" class="table table-striped"></table>
+                                    <table id="user_table" class="table table-striped">
+                                        <thead>
+                                            <th>Id</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Username</th>
+                                            <th>Role</th>
+                                            <th>Created Date</th>
+                                            <th>Action</th>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -47,15 +58,10 @@
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-
         @include('templates/footer')
     </div>
     </body>
 @endsection
 @section('script')
-    <script>
-        $(document).ready(function () {
-            $('#user_table').DataTable()
-        })
-    </script>
+    @include('user/_script')
 @endsection

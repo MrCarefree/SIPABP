@@ -6,7 +6,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ route('dashboard') }}"><b>SI</b>PABER</a>
+            <a href="{{ route('dashboard') }}"><b>{{ config('app.name') }}</b></a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
