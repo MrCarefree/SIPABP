@@ -12,13 +12,14 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
-                <div class="alert alert-danger alert-dismissible fade show" id="failed_alert" role="alert" style="display: none">
-                    <span id="failed_message"></span>
+                <div class="alert alert-danger alert-dismissible fade show" id="failed-alert" role="alert"
+                     style="display: none">
+                    <span id="failed-message"></span>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" id="login_form">
+                <form method="post" id="login-form">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Username" name="username">
@@ -47,7 +48,7 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-5">
-                            <button type="button" class="btn btn-primary btn-block" id="btn_signin">Login</button>
+                            <button type="button" class="btn btn-primary btn-block" id="btn-signin">Login</button>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -61,5 +62,5 @@
 @endsection
 
 @section('script')
-    @include('login/_script')
+    @include('login._script')
 @endsection

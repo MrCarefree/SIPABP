@@ -1,44 +1,44 @@
 <script>
     let alertUtil, loadingBtn, loginForm;
 
-    function initBtnEvents(){
-        $('form input').keypress(function(e){
-            if(e.which == 13){
-                $('#btn_signin').click()
+    function initBtnEvents() {
+        $('form input').keypress(function (e) {
+            if (e.which === 13) {
+                $('#btn-signin').click()
             }
         })
     }
 
-    function initAlert(){
+    function initAlert() {
         alertUtil = {
             showFailedAlert: (message) => {
-                $('#failed_message').html(message);
-                $('#failed_alert').show();
-                $("html, body").animate({ scrollTop: 0 }, 600);
+                $('#failed-message').html(message);
+                $('#failed-alert').show();
+                $("html, body").animate({scrollTop: 0}, 600);
             }
         }
     }
 
-    function initLoadingBtn(){
+    function initLoadingBtn() {
         loadingBtn = {
             start: () => {
                 const spinner = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
-                $('#btn_signin').attr('disabled', true).html(spinner + ' Loading...')
+                $('#btn-signin').attr('disabled', true).html(spinner + ' Loading...')
             },
             stop: () => {
-                $('#btn_signin').attr('disabled', false).text('Sign In')
+                $('#btn-signin').attr('disabled', false).text('Sign In')
             }
         }
     }
 
-    function initCustomRules(){
-        $.validator.addMethod('alphanumeric', function(value){
+    function initCustomRules() {
+        $.validator.addMethod('alphanumeric', function (value) {
             return /^[a-zA-Z0-9]+$/i.test(value)
         }, 'Input hanya bisa huruf dan angka')
     }
 
-    function initLoginForm(){
-        const validator = $('#login_form').validate({
+    function initLoginForm() {
+        const validator = $('#login-form').validate({
             // validClass: 'is-valid',
             errorClass: 'invalid-feedback',
             errorElement: 'div',
@@ -60,35 +60,49 @@
                     required: true
                 },
             },
+            message: {
+                username: {
+                    required: 'Username tidak boleh kosong'
+                },
+                password: {
+                    required: 'Password tidak boleh kosong'
+                }
+            },
             invalidHandler: function () {
                 $("html, body").animate({scrollTop: 0}, 600);
             }
         });
 
-        $('#btn_signin').click(function(){
-            const loginForm = $('#login_form');
+        $('#btn-signin').click(function () {
+            const loginForm = $('#login-form');
             const isValid = loginForm.valid();
-            if(isValid){
+            if (isValid) {
                 loadingBtn.start();
                 $.post('{{ route('login.process') }}', loginForm.serialize(), 'json')
-                    .done(function(response){
-                        if(response.status){
+                    .done(function (response) {
+                        if (response.status) {
                             window.location.href = response.redirect;
                         }
                     })
-                    .fail(function(response){
+                    .fail(function (response) {
                         loadingBtn.stop();
-                        if((typeof response.responseJSON.errors === 'object' || typeof response.responseJSON.errors === 'function')){
-                            let errorMessage = Object.values(response.responseJSON.errors).map(error => {
-                                return error.join("<br>")
-                            }).join("<br>");
-                            alertUtil.showFailedAlert(errorMessage)
-                        }else if(typeof response.responseJSON.errors === 'string'){
-                            alertUtil.showFailedAlert(response.responseJSON.errors)
-                        }else{
+                        if (response.responseJSON.hasOwnProperty('errors')) {
+                            if ((typeof response.responseJSON.errors === 'object' || typeof response.responseJSON.errors === 'function')) {
+                                errorMessage = Object.values(response.responseJSON.errors).map(error => {
+                                    return error.join("<br>")
+                                }).join("<br>");
+                                alertUtil.showFailedAlert(errorMessage)
+                            } else if (typeof response.responseJSON.errors === 'string') {
+                                alertUtil.showFailedAlert(response.responseJSON.errors)
+                            }
+                        } else if (response.responseJSON.hasOwnProperty('message')) {
+                            alertUtil.showFailedAlert(response.responseJSON.message);
+                        } else {
                             alertUtil.showFailedAlert('Gagal menghubungkan ke server, silahkan coba kembali')
                         }
 
+                        loginForm.trigger('reset');
+                        loginForm.find('input[name=username]').focus();
                         validator.resetForm()
                     })
             }
@@ -99,7 +113,7 @@
         }
     }
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         initBtnEvents();
         initAlert();
         initLoadingBtn();

@@ -19,3 +19,4 @@ require('datatables.net-searchpanes-bs4');
 require('datatables.net-select-bs4');
 
 require('admin-lte');
+require('select2');

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginPost;
+use App\Http\Requests\Login\LoginPostRequest;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +23,7 @@ class LoginController extends Controller
         return view('login/login');
     }
 
-    public function login(LoginPost $request)
+    public function login(LoginPostRequest $request)
     {
         if (method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
@@ -35,7 +35,7 @@ class LoginController extends Controller
             return response(['status' => true, 'redirect' => redirect()->intended('dashboard')->getTargetUrl()]);
         } else {
             $this->incrementLoginAttempts($request);
-            return response(['errors' => 'Username atau password salah'], Response::HTTP_BAD_REQUEST);
+            return response(['message' => 'Username atau password salah'], Response::HTTP_BAD_REQUEST);
         }
     }
 

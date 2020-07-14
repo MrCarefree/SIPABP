@@ -5,9 +5,9 @@
 @section('body')
     <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-    @include('templates/navbar')
+    @include('templates.navbar')
 
-    @include('templates/sidebar')
+    @include('templates.sidebar')
 
     <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -29,23 +29,40 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-header">
+                                <!-- card-header -->
+                                <div class="card-header d-flex align-items-center">
                                     <h3 class="card-title">DataTable with default features</h3>
+                                    <div class="ml-auto">
+                                        <button type="button" data-toggle="modal" data-target="#modal-add"
+                                                class="btn btn-primary"><i class="fas fa-plus"></i> Tambah
+                                        </button>
+                                    </div>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="user_table" class="table table-striped">
+                                    <!-- failed-alert -->
+                                    <div class="alert alert-danger alert-dismissible fade show" id="failed-alert"
+                                         role="alert" style="display: none">
+                                        <span id="failed-message"></span>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <!-- /.failed-alert -->
+                                    <!-- datatable -->
+                                    <table id="user-table" class="table table-striped">
                                         <thead>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Username</th>
-                                            <th>Role</th>
-                                            <th>Created Date</th>
-                                            <th>Action</th>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Username</th>
+                                        <th>Role</th>
+                                        <th>Created Date</th>
+                                        <th>Action</th>
                                         </thead>
-                                        <tbody> </tbody>
+                                        <tbody></tbody>
                                     </table>
+                                    <!-- /.datatable -->
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -58,10 +75,11 @@
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        @include('templates/footer')
+        @include('user._add')
+        @include('templates.footer')
     </div>
     </body>
 @endsection
 @section('script')
-    @include('user/_script')
+    @include('user._script')
 @endsection

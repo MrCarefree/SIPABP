@@ -23,7 +23,7 @@
             </div>
             <div class="info">
                 <p class="m-0" style="color: #C2C7D0">{{ ucwords(Auth::user()->name) }}</p>
-                <small style="color: #C2C7D0">{{ ucwords(Auth::user()->role) }}</small>
+                <small style="color: #C2C7D0">{{ ucwords(str_replace('_', ' ', Auth::user()->role)) }}</small>
             </div>
         </div>
 
@@ -33,7 +33,8 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}"
+                       class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
                     </a>
@@ -69,10 +70,10 @@
                         </li>
                     </ul>
                 </li>
-                @can('access-menu', 'wakil direktur')
+                @can('access-menu', 'wakil_direktur')
                     <li class="nav-item">
                         <a href="#" class="nav-link {{ request()->routeIs('pagu') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-user"></i>
+                            <i class="nav-icon fas fa-wallet"></i>
                             <p>Pagu</p>
                         </a>
                     </li>

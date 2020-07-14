@@ -29,4 +29,8 @@ Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 Route::prefix('user')->name('user')->group(function (){
     Route::get('', 'UserController@index');
     Route::get('/datatable', 'UserController@datatable')->name('.datatable');
+    Route::post('/store', 'UserController@store')->name('.store');
+    Route::get('/get', 'UserController@get')->name('.get');
+    Route::put('/update', 'UserController@update')->name('.update');
+    Route::delete('/delete', 'UserController@delete')->name('.delete');
 });
