@@ -1,6 +1,9 @@
 @extends('app')
 
 @section('pageTitle', 'User')
+@section('meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 
 @section('body')
     <body class="hold-transition sidebar-mini">
@@ -31,7 +34,7 @@
                             <div class="card">
                                 <!-- card-header -->
                                 <div class="card-header d-flex align-items-center">
-                                    <h3 class="card-title">DataTable with default features</h3>
+                                    <h3 class="card-title">Manage Your User</h3>
                                     <div class="ml-auto">
                                         <button type="button" data-toggle="modal" data-target="#modal-add"
                                                 class="btn btn-primary"><i class="fas fa-plus"></i> Tambah
@@ -50,18 +53,20 @@
                                     </div>
                                     <!-- /.failed-alert -->
                                     <!-- datatable -->
-                                    <table id="user-table" class="table table-striped">
-                                        <thead>
-                                        <th>Id</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Username</th>
-                                        <th>Role</th>
-                                        <th>Created Date</th>
-                                        <th>Action</th>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
+                                    <div class="table-responsive">
+                                        <table id="user-table" class="table table-striped">
+                                            <thead>
+                                            <th>Id</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Username</th>
+                                            <th>Role</th>
+                                            <th>Created Date</th>
+                                            <th>Action</th>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
                                     <!-- /.datatable -->
                                 </div>
                                 <!-- /.card-body -->
@@ -76,6 +81,7 @@
         </div>
         <!-- /.content-wrapper -->
         @include('user._add')
+        @include('user._edit')
         @include('templates.footer')
     </div>
     </body>

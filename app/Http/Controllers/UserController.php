@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repository\UserRepository;
+use App\Http\Requests\User\UserDeleteRequest;
+use App\Http\Requests\User\UserGetRequest;
 use App\Http\Requests\User\UserStoreRequest;
-use App\User;
+use App\Http\Requests\User\UserUpdateRequest;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -22,11 +25,11 @@ class UserController extends Controller
         return view('user.index');
     }
 
-    public function datatable()
+    public function datatable(UserRepository $userRepository)
     {
         Gate::authorize('access-menu');
 
-        $users = User::notAdministrator()->get();
+        $users = $userRepository->getNotAdministrator();
         return DataTables::of($users)
             ->addColumn('action', function ($user) {
                 return "
@@ -40,9 +43,27 @@ class UserController extends Controller
             ->make(true);
     }
 
-    public function store(UserStoreRequest $request)
+    public function store(UserStoreRequest $request, UserRepository $userRepository)
     {
-        $user = User::create($request->all());
-        return response(['status' => true, 'message' => 'Tambah user berhasil', 'user' => $user], Response::HTTP_CREATED);
+        $user = $userRepository->create($request);
+        return response()->json(['status' => true, 'message' => 'Tambah user berhasil', 'user' => $user], Response::HTTP_CREATED);
+    }
+
+    public function delete(UserDeleteRequest $request, UserRepository $userRepository)
+    {
+        $userRepository->deleteUserById($request->id);
+        return response()->json(['status' => true, 'message' => 'User berhasil di hapus'], Response::HTTP_OK);
+    }
+
+    public function get(UserGetRequest $request, UserRepository $userRepository)
+    {
+        $user = $userRepository->getUserById($request->id);
+        return response()->json(['status' => true, 'data' => $user], Response::HTTP_OK);
+    }
+
+    public function update(UserUpdateRequest $request, UserRepository $userRepository)
+    {
+        $userRepository->update($request);
+        return response()->json(['status' => true, 'message' => 'User berhasil di update'], Response::HTTP_OK);
     }
 }

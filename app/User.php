@@ -27,11 +27,23 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function isAdministrator(){
+    public function isAdministrator()
+    {
         return $this->role == 'administrator';
     }
 
-    public function scopeNotAdministrator($query){
+    public function scopeNotAdministrator($query)
+    {
         return $query->where('role', '<>', 'administrator');
+    }
+
+    public function scopeProdi($query)
+    {
+        return $query->where('role', 'prodi');
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 }

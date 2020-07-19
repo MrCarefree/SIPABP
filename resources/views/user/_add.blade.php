@@ -19,7 +19,6 @@
                 <!-- /.failed-alert -->
 
                 <form id="form-add">
-                    @csrf
                     <div class="form-group">
                         <label for="add-name">Name</label>
                         <input type="text" name="name" id="add-name" class="form-control">

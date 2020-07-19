@@ -1,5 +1,5 @@
 <script>
-    var table, alertUtil, formAdd, formEdit, loadingBtn;
+    let table, alertUtil, formAdd, formEdit, loadingBtn;
 
     function initBtnEvents() {
         $('#form-add input, #form-add select').keypress(function (e) {
@@ -21,13 +21,14 @@
             $.get('{{ route('user.get') }}', {id: targetId}, 'json')
                 .done(function (response) {
                     if (response.status) {
-                        formEdit.populateForm(response.data)
-                        // $('#modal-edit').modal('hide');
+                        formEdit.populateForm(response.data);
+                        $('#modal-edit').modal('show');
                     } else {
                         alertUtil.showFailedAlert(response.message)
                     }
                 })
                 .fail(function (response) {
+                    let errorMessage;
                     if (response.responseJSON.hasOwnProperty('errors')) {
                         if ((typeof response.responseJSON.errors === 'object' || typeof response.responseJSON.errors === 'function')) {
                             errorMessage = Object.values(response.responseJSON.errors).map(error => {
@@ -46,35 +47,51 @@
         });
 
         $('.btn_delete').on('click', function () {
-            const targetId = $(this).data('id');
-            $.ajax({
-                type: 'DELETE',
-                url: '{{ route('user.delete') }}',
-                data: {id: targetId},
-                dataType: 'json'
-            }).done(function (response) {
-                if (response.status) {
-                    table.ajax.reload();
-                    alertUtil.showSuccessToast(response.message)
-                } else {
-                    alertUtil.showFailedAlert(response.message)
+            Swal.fire({
+                title: 'Apa Anda Yakin?',
+                text: 'Anda tidak dapat mengembalikan data ini',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Hapus',
+            }).then(result => {
+                if (result.value) {
+                    const spinner = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+                    $(this).attr('disabled', true).html(spinner);
+
+                    const targetId = $(this).data('id');
+                    $.ajax({
+                        type: 'DELETE',
+                        url: '{{ route('user.delete') }}',
+                        data: {id: targetId},
+                        dataType: 'json'
+                    }).done(function (response) {
+                        if (response.status) {
+                            table.ajax.reload();
+                            alertUtil.showSuccessToast(response.message)
+                        } else {
+                            alertUtil.showFailedAlert(response.message)
+                        }
+                        $(this).attr('disabled', false).html('<i class="fas fa-trash-alt"></i>')
+                    }).fail(function (response) {
+                        let errorMessage;
+                        if (response.responseJSON.hasOwnProperty('errors')) {
+                            if ((typeof response.responseJSON.errors === 'object' || typeof response.responseJSON.errors === 'function')) {
+                                errorMessage = Object.values(response.responseJSON.errors).map(error => {
+                                    return error.join("<br>")
+                                }).join("<br>");
+                                alertUtil.showFailedAlert(errorMessage)
+                            } else if (typeof response.responseJSON.errors === 'string') {
+                                alertUtil.showFailedAlert(response.responseJSON.errors)
+                            }
+                        } else if (response.responseJSON.hasOwnProperty('message')) {
+                            alertUtil.showFailedAlert(response.responseJSON.message);
+                        } else {
+                            alertUtil.showFailedAlert('Gagal menghubungkan ke server, silahkan coba kembali')
+                        }
+                        $(this).attr('disabled', false).html('<i class="fas fa-trash-alt"></i>')
+                    });
                 }
-            }).fail(function (response) {
-                if (response.responseJSON.hasOwnProperty('errors')) {
-                    if ((typeof response.responseJSON.errors === 'object' || typeof response.responseJSON.errors === 'function')) {
-                        errorMessage = Object.values(response.responseJSON.errors).map(error => {
-                            return error.join("<br>")
-                        }).join("<br>");
-                        alertUtil.showFailedAlert(errorMessage)
-                    } else if (typeof response.responseJSON.errors === 'string') {
-                        alertUtil.showFailedAlert(response.responseJSON.errors)
-                    }
-                } else if (response.responseJSON.hasOwnProperty('message')) {
-                    alertUtil.showFailedAlert(response.responseJSON.message);
-                } else {
-                    alertUtil.showFailedAlert('Gagal menghubungkan ke server, silahkan coba kembali')
-                }
-            });
+            })
         })
     }
 
@@ -122,17 +139,18 @@
 
     function initDataTable() {
         table = $('#user-table').DataTable({
+            responsive: true,
             processing: true,
             serverSide: true,
             ajax: '{{ route('user.datatable') }}',
             columns: [
-                {data: 'id'},
-                {data: 'name'},
+                {data: 'id', width: '25px', responsivePriority: 1},
+                {data: 'name', responsivePriority: 2},
                 {data: 'email'},
                 {data: 'username'},
                 {data: 'role'},
                 {data: 'created_at'},
-                {data: 'action'},
+                {data: 'action', width: '70px', responsivePriority: 3},
             ]
         });
 
@@ -154,7 +172,7 @@
     function initCreateForm() {
         const addForm = $('#form-add');
 
-        var validator = addForm.validate({
+        const validator = addForm.validate({
             errorClass: 'invalid-feedback',
             errorElement: 'div',
             errorPlacement: function (error, element) {
@@ -248,6 +266,7 @@
                     })
                     .fail(function (response) {
                         loadingBtn.stopAdd();
+                        let errorMessage;
                         if (response.responseJSON.hasOwnProperty('errors')) {
                             if ((typeof response.responseJSON.errors === 'object' || typeof response.responseJSON.errors === 'function')) {
                                 errorMessage = Object.values(response.responseJSON.errors).map(error => {
@@ -300,6 +319,10 @@
                 $(element).removeClass('is-invalid')
             },
             rules: {
+                id: {
+                    required: true,
+                    digits: true
+                },
                 name: {
                     required: true,
                     maxlength: 50
@@ -323,6 +346,10 @@
                 }
             },
             messages: {
+                id: {
+                    required: 'Id tidak boleh kosong',
+                    digits: 'Id hanya boleh angka'
+                },
                 name: {
                     required: 'Name tidak boleh kosong',
                     maxlength: $.validator.format('Panjang maksimal {0} karakter')
@@ -365,7 +392,7 @@
                     type: 'PUT',
                     url: '{{ route('user.update') }}',
                     data: editForm.serialize(),
-                    dataType: 'josn'
+                    dataType: 'json'
                 }).done(function (response) {
                     loadingBtn.stopEdit();
                     if (response.status) {
@@ -377,6 +404,7 @@
                     }
                 }).fail(function (response) {
                     loadingBtn.stopEdit();
+                    let errorMessage;
                     if (response.responseJSON.hasOwnProperty('errors')) {
                         if ((typeof response.responseJSON.errors === 'object' || typeof response.responseJSON.errors === 'function')) {
                             errorMessage = Object.values(response.responseJSON.errors).map(error => {
@@ -419,7 +447,16 @@
         }
     }
 
+    function initAjaxToken() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        })
+    }
+
     $(document).ready(function () {
+        initAjaxToken();
         initBtnEvents();
         initLoadingBtn();
         initAlert();

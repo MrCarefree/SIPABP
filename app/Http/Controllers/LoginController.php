@@ -11,12 +11,14 @@ class LoginController extends Controller
 {
     use ThrottlesLogins;
 
-    public function username(){
+    public function username()
+    {
         return 'username';
     }
 
-    public function index(){
-        if (Auth::check()){
+    public function index()
+    {
+        if (Auth::check()) {
             return redirect()->route('dashboard');
         }
 
@@ -30,7 +32,7 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-        if (Auth::guard()->attempt($request->only('username', 'password'), $request->only('remember_me'))) {
+        if (Auth::guard()->attempt($request->only('username', 'password'), $request->remember_me)) {
             $this->clearLoginAttempts($request);
             return response(['status' => true, 'redirect' => redirect()->intended('dashboard')->getTargetUrl()]);
         } else {
@@ -39,7 +41,8 @@ class LoginController extends Controller
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
         return redirect()->route('login');
     }

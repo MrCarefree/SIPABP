@@ -9,7 +9,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('dashboard') }}" class="brand-link">
-        <img src="{{ asset('images/Politeknik-TEDC.png') }}" alt="Poltek TEDC Logo" class="brand-image img-circle elevation-3"
+        <img src="{{ asset('images/Politeknik-TEDC.png') }}" alt="Poltek TEDC Logo"
+             class="brand-image img-circle elevation-3"
              style="opacity: .8">
         <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
     </a>
@@ -40,12 +41,12 @@
                     </a>
                 </li>
                 @can('access-menu')
-                <li class="nav-item">
-                    <a href="{{ route('user') }}" class="nav-link {{ request()->routeIs('user') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>User</p>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="{{ route('user') }}" class="nav-link {{ request()->routeIs('user') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>User</p>
+                        </a>
+                    </li>
                 @endcan
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link {{ request()->routeIs('alat_bahan*') ? 'active' : '' }}">
@@ -57,13 +58,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->routeIs('alat_bahan.pengajuan') ? 'active' : '' }}">
+                            <a href="#"
+                               class="nav-link {{ request()->routeIs('alat_bahan.pengajuan') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pengajuan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->routeIs('alat_bahan.realisasi') ? 'active' : '' }}">
+                            <a href="#"
+                               class="nav-link {{ request()->routeIs('alat_bahan.realisasi') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Realisasi</p>
                             </a>
@@ -72,12 +75,18 @@
                 </li>
                 @can('access-menu', 'wakil_direktur')
                     <li class="nav-item">
-                        <a href="#" class="nav-link {{ request()->routeIs('pagu') ? 'active' : '' }}">
+                        <a href="{{ route('pagu') }}" class="nav-link {{ request()->routeIs('pagu') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-wallet"></i>
                             <p>Pagu</p>
                         </a>
                     </li>
                 @endcan
+                <li class="nav-item">
+                    <a href="{{ route('option') }}" class="nav-link {{ request()->routeIs('option') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-cog"></i>
+                        <p>Option</p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="javascript:" onclick="$('#logout_form').submit()" class="nav-link">
                         <i class="nav-icon fas fa-power-off text-danger"></i>
