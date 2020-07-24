@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -27,14 +28,19 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function programStudies()
+    {
+        return $this->hasMany('App\ProgramStudy');
+    }
+
     public function isAdministrator()
     {
         return $this->role == 'administrator';
     }
 
-    public function scopeNotAdministrator($query)
+    public function scopeNotMyself($query)
     {
-        return $query->where('role', '<>', 'administrator');
+        return $query->where('id', '<>', Auth::id());
     }
 
     public function scopeProdi($query)

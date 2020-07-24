@@ -13,11 +13,11 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'admin',
-            'email' => 'admin@poltektedc.ac.id',
-            'username' => 'admin',
-            'password' => bcrypt('admin'),
-            'role' => 'administrator'
+            'name' => 'Wakil Direktur 2',
+            'email' => 'example@gmail.com',
+            'username' => 'wadir2',
+            'password' => 'wadir2',
+            'role' => 'wakil_direktur'
         ]);
     }
 }

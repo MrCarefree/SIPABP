@@ -32,7 +32,7 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-        if (Auth::guard()->attempt($request->only('username', 'password'), $request->remember_me)) {
+        if (Auth::guard()->attempt($request->only('username', 'password'), $request->input('remember_me'))) {
             $this->clearLoginAttempts($request);
             return response(['status' => true, 'redirect' => redirect()->intended('dashboard')->getTargetUrl()]);
         } else {

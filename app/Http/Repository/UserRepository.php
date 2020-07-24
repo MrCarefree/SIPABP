@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class UserRepository
 {
-    public function getNotAdministrator()
+    public function getBesideMyself()
     {
-        return User::notAdministrator()->get();
+        return User::notMyself()->get();
     }
 
-    public function getProdi()
+    public function getProdiUser()
     {
         return User::prodi()->get();
     }
@@ -59,15 +59,6 @@ class UserRepository
     {
         $user = User::findOrFail(Auth::id());
         $user->password = $userData->new_password;
-        $user->save();
-
-        return $user;
-    }
-
-    public function updatePagu($userData)
-    {
-        $user = User::findOrFail($userData->id);
-        $user->pagu = $userData->pagu;
         $user->save();
 
         return $user;

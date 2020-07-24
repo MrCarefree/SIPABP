@@ -40,7 +40,7 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                @can('access-menu')
+                @can('access-menu', 'wakil_direktur')
                     <li class="nav-item">
                         <a href="{{ route('user') }}" class="nav-link {{ request()->routeIs('user') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-user"></i>
@@ -75,9 +75,10 @@
                 </li>
                 @can('access-menu', 'wakil_direktur')
                     <li class="nav-item">
-                        <a href="{{ route('pagu') }}" class="nav-link {{ request()->routeIs('pagu') ? 'active' : '' }}">
+                        <a href="{{ route('prodi') }}"
+                           class="nav-link {{ request()->routeIs('prodi') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-wallet"></i>
-                            <p>Pagu</p>
+                            <p>Prodi</p>
                         </a>
                     </li>
                 @endcan

@@ -54,7 +54,7 @@
                                     <!-- /.failed-alert -->
                                     <!-- datatable -->
                                     <div class="table-responsive">
-                                        <table id="user-table" class="table table-striped">
+                                        <table id="user-table" class="table table-striped w-100">
                                             <thead>
                                             <th>Id</th>
                                             <th>Name</th>

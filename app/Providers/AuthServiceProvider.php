@@ -25,12 +25,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::before(function ($user){
-            if($user->isAdministrator()){
-                return true;
-            }
-        });
-
         Gate::define('access-menu', function($user, $allowed){
             return is_array($allowed) ? in_array($user->role, $allowed) : $user->role == $allowed;
         });

@@ -35,15 +35,17 @@ Route::prefix('user')->name('user')->group(function () {
     Route::delete('/delete', 'UserController@delete')->name('.delete');
 });
 
+Route::prefix('prodi')->name('prodi')->group(function () {
+    Route::get('', 'ProdiController@index');
+    Route::get('/datatable', 'ProdiController@datatable')->name('.datatable');
+    Route::post('/store', 'ProdiController@store')->name('.store');
+    Route::get('/get', 'ProdiController@get')->name('.get');
+    Route::put('/update', 'ProdiController@update')->name('.update');
+    Route::put('/update-kaprodi', 'ProdiController@updateKaprodi')->name('.update_kaprodi');
+    Route::delete('/delete', 'ProdiController@delete')->name('.delete');
+});
 
 Route::prefix('option')->name('option')->group(function () {
     Route::get('', 'OptionController@index');
     Route::post('/update-password', 'OptionController@updatePassword')->name('.updatePassword');
-});
-
-Route::prefix('pagu')->name('pagu')->group(function () {
-    Route::get('', 'PaguController@index');
-    Route::get('/datatable', 'PaguController@datatable')->name('.datatable');
-    Route::get('/get', 'PaguController@get')->name('.get');
-    Route::put('/update', 'PaguController@update')->name('.update');
 });

@@ -21,7 +21,7 @@
             $.get('{{ route('user.get') }}', {id: targetId}, 'json')
                 .done(function (response) {
                     if (response.status) {
-                        formEdit.populateForm(response.data);
+                        formEdit.populateForm(response.user);
                         $('#modal-edit').modal('show');
                     } else {
                         alertUtil.showFailedAlert(response.message)
@@ -102,14 +102,14 @@
                 $('#btn-add-submit').attr('disabled', true).html(spinner + ' Loading...')
             },
             stopAdd: () => {
-                $('#btn-add-submit').attr('disabled', false).text('Tambah')
+                $('#btn-add-submit').attr('disabled', false).text('Save')
             },
             startEdit: () => {
                 const spinner = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
                 $('#btn-edit-submit').attr('disabled', true).html(spinner + ' Loading...')
             },
             stopEdit: () => {
-                $('#btn-edit-submit').attr('disabled', false).text('Update')
+                $('#btn-edit-submit').attr('disabled', false).text('Save')
             },
         }
     }

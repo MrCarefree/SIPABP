@@ -20,22 +20,23 @@ class UserController extends Controller
 
     public function index()
     {
-        Gate::authorize('access-menu');
+        Gate::authorize('access-menu', 'wakil_direktur');
 
         return view('user.index');
     }
 
     public function datatable(UserRepository $userRepository)
     {
-        Gate::authorize('access-menu');
-
-        $users = $userRepository->getNotAdministrator();
+        $users = $userRepository->getBesideMyself();
         return DataTables::of($users)
             ->addColumn('action', function ($user) {
                 return "
-                    <a href=\"#\" class=\"btn btn-primary btn-sm btn_edit\" data-id=\"{$user->id}\"><i class=\"fas fa-edit\"></i></a>
-                    <a href=\"#\" class=\"btn btn-danger btn-sm btn_delete\" data-id=\"{$user->id}\"><i class=\"fas fa-trash-alt\"></i></a>
+                    <a href=\"#\" class=\"btn btn-warning btn-sm btn_edit\" title='Edit' data-id=\"{$user->id}\"><i class=\"fas fa-edit\"></i></a>
+                    <a href=\"#\" class=\"btn btn-danger btn-sm btn_delete\" title='Delete' data-id=\"{$user->id}\"><i class=\"fas fa-trash-alt\"></i></a>
                 ";
+            })
+            ->editColumn('name', function ($user) {
+                return ucwords($user->name);
             })
             ->editColumn('created_at', function ($user) {
                 return $user->created_at->diffForHumans();
@@ -58,7 +59,7 @@ class UserController extends Controller
     public function get(UserGetRequest $request, UserRepository $userRepository)
     {
         $user = $userRepository->getUserById($request->id);
-        return response()->json(['status' => true, 'data' => $user], Response::HTTP_OK);
+        return response()->json(['status' => true, 'user' => $user], Response::HTTP_OK);
     }
 
     public function update(UserUpdateRequest $request, UserRepository $userRepository)

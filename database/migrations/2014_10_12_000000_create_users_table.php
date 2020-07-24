@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 50);
             $table->string('username', 24)->unique();
             $table->string('password');
-            $table->enum('role', ['administrator', 'prodi', 'tata_usaha', 'wakil_direktur']);
+            $table->enum('role', ['prodi', 'tata_usaha', 'wakil_direktur']);
             $table->rememberToken();
             $table->timestamps();
         });
