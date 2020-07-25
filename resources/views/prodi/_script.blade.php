@@ -186,12 +186,13 @@
             serverSide: true,
             ajax: '{{ route('prodi.datatable') }}',
             columns: [
-                {data: 'id', width: '25px', responsivePriority: 1},
-                {data: 'kode_prodi', responsivePriority: 2},
-                {data: 'nama_prodi'},
-                {data: 'user.name'},
+                {data: 'id', width: '25px', responsivePriority: 1, searchable: false},
+                {data: 'kode_prodi'},
+                {data: 'nama_prodi', responsivePriority: 2},
+                {data: 'pagu'},
+                {data: 'user'},
                 {data: 'created_at'},
-                {data: 'action', width: '100px', responsivePriority: 3},
+                {data: 'action', width: '100px', responsivePriority: 3, orderable: false, searchable: false},
             ]
         });
 
@@ -225,6 +226,10 @@
                     required: true,
                     maxlength: 50
                 },
+                pagu: {
+                    required: true,
+                    digits: true
+                }
             },
             messages: {
                 kode_prodi: {
@@ -234,6 +239,10 @@
                 nama_prodi: {
                     required: 'Nama prodi tidak boleh kosong',
                     maxlength: $.validator.format('Panjang maksimal {0} karakter')
+                },
+                pagu: {
+                    required: 'Pagu tidak boleh kosong',
+                    digits: 'Hanya bisa angka'
                 },
             },
             invalidHandler: function () {
@@ -313,6 +322,10 @@
                     required: true,
                     maxlength: 50
                 },
+                pagu: {
+                    required: true,
+                    digits: true
+                }
             },
             messages: {
                 id: {
@@ -326,6 +339,10 @@
                 nama_prodi: {
                     required: 'Nama prodi tidak boleh kosong',
                     maxlength: $.validator.format('Panjang maksimal {0} karakter')
+                },
+                pagu: {
+                    required: 'Nama prodi tidak boleh kosong',
+                    digits: 'Hanya bisa angka'
                 },
             },
             invalidHandler: function () {
@@ -382,6 +399,7 @@
             $('#edit-id').val(prodiObject.id);
             $('#edit-kode-prodi').val(prodiObject.kode_prodi);
             $('#edit-nama-prodi').val(prodiObject.nama_prodi);
+            $('#edit-pagu').val(prodiObject.pagu);
         };
 
         return {

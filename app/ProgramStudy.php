@@ -10,4 +10,9 @@ class ProgramStudy extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function submissions()
+    {
+        return $this->belongsToMany('App\Submission');
+    }
 }

@@ -150,7 +150,7 @@
                 {data: 'username'},
                 {data: 'role'},
                 {data: 'created_at'},
-                {data: 'action', width: '70px', responsivePriority: 3},
+                {data: 'action', width: '70px', responsivePriority: 3, orderable: false, searchable: false},
             ]
         });
 

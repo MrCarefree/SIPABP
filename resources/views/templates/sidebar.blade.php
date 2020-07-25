@@ -40,14 +40,6 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                @can('access-menu', 'wakil_direktur')
-                    <li class="nav-item">
-                        <a href="{{ route('user') }}" class="nav-link {{ request()->routeIs('user') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>User</p>
-                        </a>
-                    </li>
-                @endcan
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link {{ request()->routeIs('alat_bahan*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-file-invoice"></i>
@@ -77,8 +69,14 @@
                     <li class="nav-item">
                         <a href="{{ route('prodi') }}"
                            class="nav-link {{ request()->routeIs('prodi') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-wallet"></i>
+                            <i class="nav-icon fas fa-book-open"></i>
                             <p>Prodi</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('user') }}" class="nav-link {{ request()->routeIs('user') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>User</p>
                         </a>
                     </li>
                 @endcan

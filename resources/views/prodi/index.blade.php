@@ -59,6 +59,7 @@
                                             <th>Id</th>
                                             <th>Kode Prodi</th>
                                             <th>Nama Prodi</th>
+                                            <th>Pagu</th>
                                             <th>Kaprodi</th>
                                             <th>Created Date</th>
                                             <th>Action</th>

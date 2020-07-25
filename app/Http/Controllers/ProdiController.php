@@ -11,6 +11,7 @@ use App\Http\Requests\Prodi\ProdiUpdateKaprodiRequest;
 use App\Http\Requests\Prodi\ProdiUpdateRequest;
 use App\ProgramStudy;
 use Illuminate\Support\Facades\Gate;
+use NumberFormatter;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -48,6 +49,13 @@ class ProdiController extends Controller
             })
             ->editColumn('nama_prodi', function ($programStudies) {
                 return ucwords($programStudies->nama_prodi);
+            })
+            ->editColumn('pagu', function ($programStudies) {
+                $fmt = new NumberFormatter('id_ID', NumberFormatter::CURRENCY);
+                return $fmt->format($programStudies->pagu);
+            })
+            ->editColumn('user', function ($programStudies) {
+                return ucwords(optional($programStudies->user)->name);
             })
             ->editColumn('created_at', function ($programStudies) {
                 return $programStudies->created_at->diffForHumans();

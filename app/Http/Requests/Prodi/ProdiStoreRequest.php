@@ -26,6 +26,7 @@ class ProdiStoreRequest extends FormRequest
         return [
             'kode_prodi' => ['required', 'present', 'max:5'],
             'nama_prodi' => ['required', 'present', 'max:50'],
+            'pagu' => ['required', 'present', 'integer'],
         ];
     }
 
@@ -34,7 +35,8 @@ class ProdiStoreRequest extends FormRequest
         return [
             'required' => ':attribute tidak boleh kosong',
             'present' => ':attribute harus tersedia',
-            'max' => 'panjang :attribute maksimal :size',
+            'max' => 'Panjang :attribute maksimal :size',
+            'integer' => ':attribute harus bernilai angka'
         ];
     }
 }

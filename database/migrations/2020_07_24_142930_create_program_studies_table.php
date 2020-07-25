@@ -15,9 +15,10 @@ class CreateProgramStudiesTable extends Migration
     {
         Schema::create('program_studies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
-            $table->string('kode_prodi', 5)->nullable(false);
-            $table->string('nama_prodi', 50)->nullable(false);
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null')->onUpdate('cascade');
+            $table->string('kode_prodi', 5);
+            $table->string('nama_prodi', 50);
+            $table->integer('pagu');
             $table->timestamps();
         });
     }

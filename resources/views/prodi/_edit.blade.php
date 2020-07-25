@@ -29,6 +29,10 @@
                         <label for="edit-email">Nama Prodi</label>
                         <input type="text" name="nama_prodi" id="edit-nama-prodi" class="form-control">
                     </div>
+                    <div class="form-group">
+                        <label for="edit-pagu">Pagu</label>
+                        <input type="number" name="pagu" id="edit-pagu" class="form-control">
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

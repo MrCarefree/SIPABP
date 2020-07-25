@@ -27,6 +27,7 @@ class ProdiUpdateRequest extends FormRequest
             'id' => ['required', 'present', 'integer'],
             'kode_prodi' => ['required', 'present', 'max:5'],
             'nama_prodi' => ['required', 'present', 'max:50'],
+            'pagu' => ['required', 'present', 'integer'],
         ];
     }
 
@@ -37,6 +38,7 @@ class ProdiUpdateRequest extends FormRequest
             'present' => ':attribute harus tersedia',
             'integer' => ':attribute harus bernilai angka',
             'max' => 'panjang :attribute maksimal :size',
+            'integer' => ':attribute harus bernilai angka'
         ];
     }
 }
