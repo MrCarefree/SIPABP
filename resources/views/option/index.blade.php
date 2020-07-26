@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('pageTitle', 'User')
+@section('pageTitle', 'Option')
 @section('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection

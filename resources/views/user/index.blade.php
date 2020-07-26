@@ -56,7 +56,6 @@
                                     <div class="table-responsive">
                                         <table id="user-table" class="table table-striped w-100">
                                             <thead>
-                                            <th>Id</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Username</th>

@@ -144,13 +144,12 @@
             serverSide: true,
             ajax: '{{ route('user.datatable') }}',
             columns: [
-                {data: 'id', width: '25px', responsivePriority: 1},
-                {data: 'name', responsivePriority: 2},
+                {data: 'name', responsivePriority: 1},
                 {data: 'email'},
                 {data: 'username'},
                 {data: 'role'},
                 {data: 'created_at'},
-                {data: 'action', width: '70px', responsivePriority: 3, orderable: false, searchable: false},
+                {data: 'action', width: '100px', responsivePriority: 2, orderable: false, searchable: false},
             ]
         });
 
@@ -430,7 +429,7 @@
         });
 
         modalEdit.on('hidden.bs.modal', function () {
-            $('#add-edit').val(null).trigger('change')
+            $('#edit-role').val(null).trigger('change')
         });
 
         const populateForm = userObject => {

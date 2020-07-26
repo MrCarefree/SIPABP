@@ -8,7 +8,9 @@ class Submission extends Model
 {
     public function programStudies()
     {
-        return $this->belongsToMany('App\ProgramStudy');
+        return $this->belongsToMany('App\ProgramStudy')
+            ->withPivot('siswa')
+            ->withTimestamps();
     }
 
     public function submissionDetails()

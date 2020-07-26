@@ -24,6 +24,7 @@
                     <div class="form-group">
                         <label for="kaprodi-kaprodi">User</label>
                         <select name="user" id="kaprodi-user" class="form-control select2">
+                            <option value=""></option>
                             @foreach($users as $user)
                                 <option value="{{ $user->id }}">{{ ucwords($user->name) }}</option>
                             @endforeach

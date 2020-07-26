@@ -186,13 +186,12 @@
             serverSide: true,
             ajax: '{{ route('prodi.datatable') }}',
             columns: [
-                {data: 'id', width: '25px', responsivePriority: 1, searchable: false},
                 {data: 'kode_prodi'},
-                {data: 'nama_prodi', responsivePriority: 2},
+                {data: 'nama_prodi', responsivePriority: 1},
                 {data: 'pagu'},
                 {data: 'user'},
                 {data: 'created_at'},
-                {data: 'action', width: '100px', responsivePriority: 3, orderable: false, searchable: false},
+                {data: 'action', width: '120px', responsivePriority: 2, orderable: false, searchable: false},
             ]
         });
 

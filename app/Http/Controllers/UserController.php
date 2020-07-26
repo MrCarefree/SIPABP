@@ -13,9 +13,15 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
-    public function __construct()
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    public function __construct(UserRepository $userRepository)
     {
         $this->middleware('auth');
+        $this->userRepository = $userRepository;
     }
 
     public function index()
@@ -25,9 +31,9 @@ class UserController extends Controller
         return view('user.index');
     }
 
-    public function datatable(UserRepository $userRepository)
+    public function datatable()
     {
-        $users = $userRepository->getBesideMyself();
+        $users = $this->userRepository->getBesideMyself();
         return DataTables::of($users)
             ->addColumn('action', function ($user) {
                 return "
@@ -44,27 +50,27 @@ class UserController extends Controller
             ->make(true);
     }
 
-    public function store(UserStoreRequest $request, UserRepository $userRepository)
+    public function store(UserStoreRequest $request)
     {
-        $user = $userRepository->create($request);
+        $user = $this->userRepository->create($request);
         return response()->json(['status' => true, 'message' => 'Tambah user berhasil', 'user' => $user], Response::HTTP_CREATED);
     }
 
-    public function delete(UserDeleteRequest $request, UserRepository $userRepository)
+    public function delete(UserDeleteRequest $request)
     {
-        $userRepository->deleteUserById($request->id);
+        $this->userRepository->deleteUserById($request->id);
         return response()->json(['status' => true, 'message' => 'User berhasil di hapus'], Response::HTTP_OK);
     }
 
-    public function get(UserGetRequest $request, UserRepository $userRepository)
+    public function get(UserGetRequest $request)
     {
-        $user = $userRepository->getUserById($request->id);
+        $user = $this->userRepository->getUserById($request->id);
         return response()->json(['status' => true, 'user' => $user], Response::HTTP_OK);
     }
 
-    public function update(UserUpdateRequest $request, UserRepository $userRepository)
+    public function update(UserUpdateRequest $request)
     {
-        $userRepository->update($request);
+        $this->userRepository->update($request);
         return response()->json(['status' => true, 'message' => 'User berhasil di update'], Response::HTTP_OK);
     }
 }

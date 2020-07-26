@@ -35,6 +35,25 @@ Route::prefix('user')->name('user')->group(function () {
     Route::delete('/delete', 'UserController@delete')->name('.delete');
 });
 
+Route::prefix('pengajuan')->name('pengajuan')->group(function () {
+    Route::get('', 'PengajuanController@index');
+    Route::get('/datatable', 'PengajuanController@datatable')->name('.datatable');
+    Route::post('/store', 'PengajuanController@store')->name('.store');
+    Route::get('/get', 'PengajuanController@get')->name('.get');
+    Route::get('/get-prodi', 'PengajuanController@getProdi')->name('.get_prodi');
+    Route::put('/update', 'PengajuanController@update')->name('.update');
+    Route::delete('/delete', 'PengajuanController@delete')->name('.delete');
+
+    Route::prefix('/{id}')->name('.detail')->group(function () {
+        Route::get('', 'PengajuanDetailController@index');
+        Route::get('/datatable', 'PengajuanDetailController@datatable')->name('.datatable');
+        Route::post('/store', 'PengajuanDetailController@store')->name('.store');
+        Route::get('/get', 'PengajuanDetailController@get')->name('.get');
+        Route::put('/update', 'PengajuanDetailController@update')->name('.update');
+        Route::delete('/delete', 'PengajuanDetailController@delete')->name('.delete');
+    });
+});
+
 Route::prefix('prodi')->name('prodi')->group(function () {
     Route::get('', 'ProdiController@index');
     Route::get('/datatable', 'ProdiController@datatable')->name('.datatable');

@@ -17,7 +17,8 @@ class CreateSubmissionsTable extends Migration
             $table->id();
             $table->string('tahun_akademik', 9);
             $table->enum('semester', ['genap', 'ganjil']);
-            $table->integer('pagu');
+            $table->integer('siswa')->nullable();
+            $table->integer('pagu')->nullable();
             $table->enum('status', [1, 2, 3])->default(1)->comment('1: pengajuan, 2: negosiasi, 3: realisasi');
             $table->timestamps();
         });

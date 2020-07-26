@@ -6,6 +6,7 @@ require('bootstrap');
 require('popper.js');
 require('jquery-ui');
 require('jquery-validation');
+require('jquery-validation/dist/additional-methods');
 require('moment'); // number formatter
 require('filterizr'); // image gallery
 
@@ -20,3 +21,5 @@ require('datatables.net-select-bs4');
 
 require('admin-lte');
 require('select2');
+require('bs-custom-file-input');
+require('inputmask');

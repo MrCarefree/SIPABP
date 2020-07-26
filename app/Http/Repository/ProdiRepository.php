@@ -4,6 +4,7 @@
 namespace App\Http\Repository;
 
 use App\ProgramStudy;
+use Illuminate\Support\Facades\Auth;
 
 class ProdiRepository
 {
@@ -46,5 +47,10 @@ class ProdiRepository
         $prodi->save();
 
         return $prodi;
+    }
+
+    public function getProdiByUser()
+    {
+        return Auth::user()->programStudies()->get();
     }
 }

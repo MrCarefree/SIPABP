@@ -37,28 +37,28 @@ class ProdiController extends Controller
     {
         $programStudies = ProgramStudy::with('user')->get();
         return DataTables::of($programStudies)
-            ->addColumn('action', function ($programStudies) {
+            ->addColumn('action', function ($programStudy) {
                 return "
-                    <a href=\"#\" class=\"btn btn-primary btn-sm btn_kaprodi\" title='Tunjuk Kaprodi' data-id=\"{$programStudies->id}\"><i class=\"fas fa-user\"></i></a>
-                    <a href=\"#\" class=\"btn btn-warning btn-sm btn_edit\" title='Edit' data-id=\"{$programStudies->id}\"><i class=\"fas fa-edit\"></i></a>
-                    <a href=\"#\" class=\"btn btn-danger btn-sm btn_delete\" title='Delete' data-id=\"{$programStudies->id}\"><i class=\"fas fa-trash-alt\"></i></a>
+                    <a href=\"#\" class=\"btn btn-primary btn-sm btn_kaprodi\" title='Tunjuk Kaprodi' data-id=\"{$programStudy->id}\"><i class=\"fas fa-user\"></i></a>
+                    <a href=\"#\" class=\"btn btn-warning btn-sm btn_edit\" title='Edit' data-id=\"{$programStudy->id}\"><i class=\"fas fa-edit\"></i></a>
+                    <a href=\"#\" class=\"btn btn-danger btn-sm btn_delete\" title='Delete' data-id=\"{$programStudy->id}\"><i class=\"fas fa-trash-alt\"></i></a>
                 ";
             })
-            ->editColumn('kode_prodi', function ($programStudies) {
-                return strtoupper($programStudies->kode_prodi);
+            ->editColumn('kode_prodi', function ($programStudy) {
+                return strtoupper($programStudy->kode_prodi);
             })
-            ->editColumn('nama_prodi', function ($programStudies) {
-                return ucwords($programStudies->nama_prodi);
+            ->editColumn('nama_prodi', function ($programStudy) {
+                return ucwords($programStudy->nama_prodi);
             })
-            ->editColumn('pagu', function ($programStudies) {
+            ->editColumn('pagu', function ($programStudy) {
                 $fmt = new NumberFormatter('id_ID', NumberFormatter::CURRENCY);
-                return $fmt->format($programStudies->pagu);
+                return $fmt->format($programStudy->pagu);
             })
-            ->editColumn('user', function ($programStudies) {
-                return ucwords(optional($programStudies->user)->name);
+            ->editColumn('user', function ($programStudy) {
+                return ucwords(optional($programStudy->user)->name);
             })
-            ->editColumn('created_at', function ($programStudies) {
-                return $programStudies->created_at->diffForHumans();
+            ->editColumn('created_at', function ($programStudy) {
+                return $programStudy->created_at->diffForHumans();
             })
             ->make(true);
     }

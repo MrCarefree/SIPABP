@@ -13,6 +13,8 @@ class ProgramStudy extends Model
 
     public function submissions()
     {
-        return $this->belongsToMany('App\Submission');
+        return $this->belongsToMany('App\Submission')
+            ->withPivot('siswa')
+            ->withTimestamps();
     }
 }

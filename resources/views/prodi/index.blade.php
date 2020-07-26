@@ -56,7 +56,6 @@
                                     <div class="table-responsive">
                                         <table id="prodi-table" class="table table-striped w-100">
                                             <thead>
-                                            <th>Id</th>
                                             <th>Kode Prodi</th>
                                             <th>Nama Prodi</th>
                                             <th>Pagu</th>

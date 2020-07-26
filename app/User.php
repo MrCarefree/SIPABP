@@ -38,6 +38,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Negotiation');
     }
 
+    public function submissions()
+    {
+        return $this->hasManyThrough('App\Submission', 'App\ProgramStudy');
+    }
+
     public function isAdministrator()
     {
         return $this->role == 'administrator';
