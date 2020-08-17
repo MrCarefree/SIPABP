@@ -187,10 +187,19 @@
             ajax: '{{ route('prodi.datatable') }}',
             columns: [
                 {data: 'kode_prodi'},
-                {data: 'nama_prodi', responsivePriority: 1},
+                {data: 'nama_prodi', responsivePriority: 0},
                 {data: 'pagu'},
                 {data: 'user'},
-                {data: 'created_at'},
+                {
+                    data: 'created_at', responsivePriority: 1, render: function (data, type, row) {
+                        if (type === 'display') {
+                            date = new Date(data);
+                            return date.toLocaleDateString()
+                        }
+
+                        return data
+                    }
+                },
                 {data: 'action', width: '120px', responsivePriority: 2, orderable: false, searchable: false},
             ]
         });
@@ -201,7 +210,6 @@
     }
 
     function initCustomRule() {
-
     }
 
     function initCreateForm() {
@@ -229,20 +237,6 @@
                     required: true,
                     digits: true
                 }
-            },
-            messages: {
-                kode_prodi: {
-                    required: 'Kode prodi tidak boleh kosong',
-                    maxlength: $.validator.format('Panjang maksimal {0} karakter')
-                },
-                nama_prodi: {
-                    required: 'Nama prodi tidak boleh kosong',
-                    maxlength: $.validator.format('Panjang maksimal {0} karakter')
-                },
-                pagu: {
-                    required: 'Pagu tidak boleh kosong',
-                    digits: 'Hanya bisa angka'
-                },
             },
             invalidHandler: function () {
                 $("#modal-add .modal-body").animate({scrollTop: 0}, 600);
@@ -325,24 +319,6 @@
                     required: true,
                     digits: true
                 }
-            },
-            messages: {
-                id: {
-                    required: 'Id tidak boleh kosong',
-                    digits: 'Id hanya boleh angka'
-                },
-                kode_prodi: {
-                    required: 'Kode prodi tidak boleh kosong',
-                    maxlength: $.validator.format('Panjang maksimal {0} karakter')
-                },
-                nama_prodi: {
-                    required: 'Nama prodi tidak boleh kosong',
-                    maxlength: $.validator.format('Panjang maksimal {0} karakter')
-                },
-                pagu: {
-                    required: 'Nama prodi tidak boleh kosong',
-                    digits: 'Hanya bisa angka'
-                },
             },
             invalidHandler: function () {
                 $("#modal-edit .modal-body").animate({scrollTop: 0}, 600);
@@ -432,15 +408,6 @@
                 },
                 user: {
                     required: true,
-                },
-            },
-            messages: {
-                id: {
-                    required: 'Id tidak boleh kosong',
-                    digits: 'Id hanya boleh angka'
-                },
-                user: {
-                    required: 'User tidak boleh kosong',
                 },
             },
             invalidHandler: function () {

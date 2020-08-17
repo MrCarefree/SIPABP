@@ -41,7 +41,8 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link {{ request()->routeIs('alat_bahan*') ? 'active' : '' }}">
+                    <a href="#"
+                       class="nav-link {{ request()->routeIs('pengajuan*') || request()->routeIs('realisasi*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-file-invoice"></i>
                         <p>
                             Alat & Bahan
@@ -51,14 +52,14 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('pengajuan') }}"
-                               class="nav-link {{ request()->routeIs('alat_bahan.pengajuan') ? 'active' : '' }}">
+                               class="nav-link {{ request()->routeIs('pengajuan*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pengajuan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#"
-                               class="nav-link {{ request()->routeIs('alat_bahan.realisasi') ? 'active' : '' }}">
+                            <a href="{{ route('realisasi') }}"
+                               class="nav-link {{ request()->routeIs('realisasi*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Realisasi</p>
                             </a>

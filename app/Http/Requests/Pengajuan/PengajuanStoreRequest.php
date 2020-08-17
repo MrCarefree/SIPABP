@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Pengajuan;
 
+use App\Rules\AcademicYear;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -25,22 +26,10 @@ class PengajuanStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'tahun_akademik' => ['required', 'present', 'max:9', 'min:9'],
+            'tahun_akademik' => ['required', 'present', 'max:9', 'min:9', new AcademicYear()],
             'semester' => ['required', 'present', Rule::in(['ganjil', 'genap'])],
             'prodi' => ['required', 'present', 'array'],
             'siswa' => ['required', 'present']
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'required' => ':attribute tidak boleh kosong',
-            'present' => ':attribute harus tersedia',
-            'min' => 'panjang :attribute minimal :size',
-            'max' => 'panjang :attribute maksimal :size',
-            'in' => ':attribute harus salah satu dari :values',
-            'array' => ':attribute harus array'
         ];
     }
 }

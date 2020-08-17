@@ -27,13 +27,4 @@ class UserGetRequest extends FormRequest
             'id' => ['required', 'present', 'integer']
         ];
     }
-
-    public function messages()
-    {
-        return [
-            'required' => ':attribute tidak boleh kosong',
-            'present' => ':attribute harus tersedia',
-            'integer' => ':attribute harus bernilai angka'
-        ];
-    }
 }

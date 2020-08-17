@@ -29,17 +29,4 @@ class UserUpdatePasswordRequest extends FormRequest
             'new_password_confirmation' => ['required', 'present']
         ];
     }
-
-    public function messages()
-    {
-        return [
-            'required' => ':attribute tidak boleh kosong',
-            'password' => ':attribute salah',
-            'present' => ':attribute harus tersedia',
-            'alpha_num' => ':attribute hanya boleh alphanumeric',
-            'max' => 'panjang :attribute maksimal :size',
-            'min' => 'panjang :attribute minimal :size',
-            'confirmed' => ':attribute confirmation tidak sesuai'
-        ];
-    }
 }

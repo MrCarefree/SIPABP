@@ -26,25 +26,10 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'present', 'max:50', 'regex:/^[a-zA-Z0-9\s]+$/'],
-            'email' => ['required', 'present', 'max:50', 'email'],
-            'username' => ['required', 'present', 'max:24', 'alpha_num', 'unique:users,email'],
+            'email' => ['required', 'present', 'max:50', 'email', 'unique:users,email'],
+            'username' => ['required', 'present', 'max:24', 'alpha_num'],
             'password' => ['required', 'present', 'alpha_num', 'max:32', 'min:8'],
             'role' => ['required', 'present', Rule::in(['prodi', 'wakil_direktur', 'tata_usaha'])],
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'required' => ':attribute tidak boleh kosong',
-            'present' => ':attribute harus tersedia',
-            'alpha_num' => ':attribute hanya boleh alphanumeric',
-            'max' => 'panjang :attribute maksimal :size',
-            'email' => ':attribute bukan format email yang benar',
-            'unique' => ':attribute harus unique',
-            'regex' => ':attribute hanya boleh alphanumeric dan spasi',
-            'min' => 'panjang :attribute minimal :size',
-            'in' => ':attribute harus salah satu dari :values'
         ];
     }
 }

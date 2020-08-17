@@ -17,4 +17,9 @@ class Submission extends Model
     {
         return $this->hasMany('App\SubmissionDetail');
     }
+
+    public function realizations()
+    {
+        return $this->hasMany('App\Realization');
+    }
 }

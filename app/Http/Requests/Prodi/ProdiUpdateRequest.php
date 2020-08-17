@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Prodi;
 
+use App\ProgramStudy;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProdiUpdateRequest extends FormRequest
@@ -23,22 +24,15 @@ class ProdiUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if ($this->id) {
+            $programStudy = ProgramStudy::findOrFail($this->id);
+        }
+
         return [
             'id' => ['required', 'present', 'integer'],
-            'kode_prodi' => ['required', 'present', 'max:5'],
-            'nama_prodi' => ['required', 'present', 'max:50'],
+            'kode_prodi' => ['required', 'present', 'max:5', 'unique:program_studies,kode_prodi,' . optional($programStudy)->kode_prodi . ', kode_prodi'],
+            'nama_prodi' => ['required', 'present', 'max:50', 'unique:program_studies,nama_prodi,' . optional($programStudy)->nama_prodi . ', nama_prodi'],
             'pagu' => ['required', 'present', 'integer'],
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'required' => ':attribute tidak boleh kosong',
-            'present' => ':attribute harus tersedia',
-            'integer' => ':attribute harus bernilai angka',
-            'max' => 'panjang :attribute maksimal :size',
-            'integer' => ':attribute harus bernilai angka'
         ];
     }
 }

@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label for="edit-semester">Semester</label>
-                        <select name="semester" id="edit-semester" class="form-control">
+                        <select name="semester" id="edit-semester" class="custom-select">
                             <option value="ganjil">Ganjil</option>
                             <option value="genap">Genap</option>
                         </select>

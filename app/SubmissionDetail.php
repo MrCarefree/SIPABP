@@ -15,4 +15,9 @@ class SubmissionDetail extends Model
     {
         return $this->hasOne('App\Negotiation');
     }
+
+    public function realization()
+    {
+        return $this->hasOne('App\Realization');
+    }
 }

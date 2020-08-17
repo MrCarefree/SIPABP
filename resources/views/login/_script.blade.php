@@ -34,7 +34,7 @@
     function initCustomRules() {
         $.validator.addMethod('alphanumeric', function (value) {
             return /^[a-zA-Z0-9]+$/i.test(value)
-        }, 'Input hanya bisa huruf dan angka')
+        }, 'Only can alphabetic and number')
     }
 
     function initLoginForm() {
@@ -59,14 +59,6 @@
                 password: {
                     required: true
                 },
-            },
-            message: {
-                username: {
-                    required: 'Username tidak boleh kosong'
-                },
-                password: {
-                    required: 'Password tidak boleh kosong'
-                }
             },
             invalidHandler: function () {
                 $("html, body").animate({scrollTop: 0}, 600);

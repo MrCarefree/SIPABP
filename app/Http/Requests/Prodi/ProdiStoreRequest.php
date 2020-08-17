@@ -24,19 +24,9 @@ class ProdiStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'kode_prodi' => ['required', 'present', 'max:5'],
-            'nama_prodi' => ['required', 'present', 'max:50'],
+            'kode_prodi' => ['required', 'present', 'max:5', 'unique:program_studies,kode_prodi'],
+            'nama_prodi' => ['required', 'present', 'max:50', 'unique:program_studies,nama_prodi'],
             'pagu' => ['required', 'present', 'integer'],
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'required' => ':attribute tidak boleh kosong',
-            'present' => ':attribute harus tersedia',
-            'max' => 'Panjang :attribute maksimal :size',
-            'integer' => ':attribute harus bernilai angka'
         ];
     }
 }

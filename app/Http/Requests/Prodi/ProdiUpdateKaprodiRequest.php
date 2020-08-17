@@ -28,14 +28,4 @@ class ProdiUpdateKaprodiRequest extends FormRequest
             'user' => ['required', 'present', 'exists:users,id'],
         ];
     }
-
-    public function messages()
-    {
-        return [
-            'required' => ':attribute tidak boleh kosong',
-            'present' => ':attribute harus tersedia',
-            'integer' => ':attribute harus bernilai angka',
-            'exists' => ':attribute tidak ada dalam database'
-        ];
-    }
 }

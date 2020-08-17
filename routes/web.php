@@ -35,6 +35,22 @@ Route::prefix('user')->name('user')->group(function () {
     Route::delete('/delete', 'UserController@delete')->name('.delete');
 });
 
+Route::prefix('realisasi')->name('realisasi')->group(function () {
+    Route::get('', 'RealisasiController@submission');
+    Route::get('/datatable', 'RealisasiController@datatableSubmission')->name('.datatable');
+
+    Route::prefix('/{id}')->name('.detail')->group(function () {
+        Route::get('', 'RealisasiController@index');
+        Route::get('/datatable', 'RealisasiController@datatable')->name('.datatable');
+        Route::get('/get-barang', 'RealisasiController@getBarang')->name('.get_barang');
+        Route::get('/get-item', 'RealisasiController@getItem')->name('.get_item');
+        Route::post('/store', 'RealisasiController@store')->name('.store');
+        Route::get('/get', 'RealisasiController@get')->name('.get');
+        Route::post('/update', 'RealisasiController@update')->name('.update');
+        Route::delete('/delete', 'RealisasiController@delete')->name('.delete');
+    });
+});
+
 Route::prefix('pengajuan')->name('pengajuan')->group(function () {
     Route::get('', 'PengajuanController@index');
     Route::get('/datatable', 'PengajuanController@datatable')->name('.datatable');
@@ -46,10 +62,14 @@ Route::prefix('pengajuan')->name('pengajuan')->group(function () {
 
     Route::prefix('/{id}')->name('.detail')->group(function () {
         Route::get('', 'PengajuanDetailController@index');
+        Route::get('/pengajuan', 'PengajuanDetailController@pengajuan')->name('.pengajuan');
+        Route::get('/negosiasi', 'PengajuanDetailController@negosiasi')->name('.negosiasi');
+        Route::get('/realisasi', 'PengajuanDetailController@realisasi')->name('.realisasi');
         Route::get('/datatable', 'PengajuanDetailController@datatable')->name('.datatable');
         Route::post('/store', 'PengajuanDetailController@store')->name('.store');
         Route::get('/get', 'PengajuanDetailController@get')->name('.get');
-        Route::put('/update', 'PengajuanDetailController@update')->name('.update');
+        Route::post('/update', 'PengajuanDetailController@update')->name('.update');
+        Route::post('/update-negosiasi', 'PengajuanDetailController@updateNegotiation')->name('.update_negotiation');
         Route::delete('/delete', 'PengajuanDetailController@delete')->name('.delete');
     });
 });

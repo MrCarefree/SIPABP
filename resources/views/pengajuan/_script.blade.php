@@ -142,15 +142,34 @@
             responsive: true,
             processing: true,
             serverSide: true,
-            ajax: '{{ route('pengajuan.datatable') }}',
+            searching: false,
+            order: [[5, 'desc'], [0, 'desc']],
+            ajax: {
+                url: '{{ route('pengajuan.datatable') }}',
+                data: function (d) {
+                    d.tahunAkademik = $('#filter-tahun-akademik').val();
+                    d.semester = $('#filter-semester').val();
+                    d.prodi = $('#filter-prodi').val();
+                    d.status = $('#filter-status').val()
+                }
+            },
             columns: [
-                {data: 'tahun_akademik', responsivePriority: 1},
-                {data: 'semester', responsivePriority: 2},
+                {data: 'tahun_akademik', responsivePriority: 0},
+                {data: 'semester', responsivePriority: 1},
                 {data: 'pagu'},
                 {data: 'program_studies'},
                 {data: 'status'},
-                {data: 'created_at'},
-                {data: 'action', width: '100px', responsivePriority: 3, orderable: false, searchable: false},
+                {
+                    data: 'created_at', responsivePriority: 2, render: function (data, type, row) {
+                        if (type === 'display') {
+                            date = new Date(data);
+                            return date.toLocaleDateString()
+                        }
+
+                        return data
+                    }
+                },
+                {data: 'action', width: '120px', responsivePriority: 3, orderable: false, searchable: false},
             ]
         });
 
@@ -162,11 +181,11 @@
     function initCustomRule() {
         $.validator.addMethod("alphanumeric", function (value, element) {
             return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
-        }, 'Hanya alphanumeric yang diperbolehkan');
+        }, 'Only can alphanumeric');
 
         $.validator.addMethod("alphanumericspace", function (value, element) {
             return this.optional(element) || /^[a-zA-Z0-9\s]+$/.test(value);
-        }, 'Hanya alphanumeric dan spasi yang diperbolehkan');
+        }, 'Only can alphanumeric and space');
     }
 
     function initCreateForm() {
@@ -203,23 +222,6 @@
                     required: true,
                     pattern: /^[0-9,]*$/
                 }
-            },
-            messages: {
-                tahun_akademik: {
-                    required: 'Tahun akademik tidak boleh kosong',
-                    minlength: $.validator.format('Panjang minimal {0} karakter'),
-                    maxlength: $.validator.format('Panjang maksimal {0} karakter')
-                },
-                semester: {
-                    required: 'Semester tidak boleh kosong',
-                },
-                'prodi[]': {
-                    required: 'Prodi tidak boleh kosong',
-                },
-                siswa: {
-                    required: 'Siswa tidak boleh kosong',
-                    pattern: 'Hanya menerima angka dan ","'
-                },
             },
             invalidHandler: function () {
                 $("#modal-add .modal-body").animate({scrollTop: 0}, 600);
@@ -279,6 +281,8 @@
             addForm.trigger('reset')
         });
 
+        addForm.trigger('reset');
+
         modalAdd.on('hidden.bs.modal', function () {
             $('#add-prodi').val(null).trigger('change')
         });
@@ -326,27 +330,6 @@
                     required: true,
                     pattern: /^[0-9,]*$/
                 }
-            },
-            messages: {
-                id: {
-                    required: 'Id tidak boleh kosong',
-                    digits: 'Id hanya boleh angka'
-                },
-                tahun_akademik: {
-                    required: 'Tahun akademik tidak boleh kosong',
-                    minlength: $.validator.format('Panjang minimal {0} karakter'),
-                    maxlength: $.validator.format('Panjang maksimal {0} karakter')
-                },
-                semester: {
-                    required: 'Semester tidak boleh kosong',
-                },
-                'prodi[]': {
-                    required: 'Prodi tidak boleh kosong',
-                },
-                siswa: {
-                    required: 'Siswa tidak boleh kosong',
-                    pattern: 'Hanya menerima angka dan ","'
-                },
             },
             invalidHandler: function () {
                 $("#modal-edit .modal-body").animate({scrollTop: 0}, 600);
@@ -440,7 +423,38 @@
         })
     }
 
+    function initFilter() {
+        $('#filter-status, #filter-prodi, #filter-semester, #filter-tahun-akademik').change(function () {
+            table.ajax.reload();
+        });
+
+        $('#filter-tahun-akademik').select2({
+            theme: 'bootstrap4',
+            width: '100% !important',
+            placeholder: 'All Tahun Akademik'
+        });
+
+        $('#filter-semester').select2({
+            theme: 'bootstrap4',
+            width: '100% !important',
+            placeholder: 'All Semester'
+        });
+
+        $('#filter-prodi').select2({
+            theme: 'bootstrap4',
+            width: '100% !important',
+            placeholder: 'All Prodi'
+        });
+
+        $('#filter-status').select2({
+            theme: 'bootstrap4',
+            width: '100% !important',
+            placeholder: 'All Status'
+        });
+    }
+
     $(document).ready(function () {
+        initFilter();
         initAjaxToken();
         initBtnEvents();
         initLoadingBtn();

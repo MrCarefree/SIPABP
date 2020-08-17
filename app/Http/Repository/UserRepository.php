@@ -7,18 +7,28 @@ namespace App\Http\Repository;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
-class UserRepository
+class UserRepository implements RepositoryInterface
 {
+    /**
+     * @return mixed
+     */
     public function getBesideMyself()
     {
         return User::notMyself()->get();
     }
 
+    /**
+     * @return mixed
+     */
     public function getProdiUser()
     {
         return User::prodi()->get();
     }
 
+    /**
+     * @param $userData
+     * @return User|mixed
+     */
     public function create($userData)
     {
         $user = new User();
@@ -32,16 +42,28 @@ class UserRepository
         return $user;
     }
 
-    public function deleteUserById($id)
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function deleteById($id)
     {
         return User::findOrFail($id)->delete();
     }
 
-    public function getUserById($id)
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getById($id)
     {
         return User::findOrFail($id);
     }
 
+    /**
+     * @param $userData
+     * @return mixed
+     */
     public function update($userData)
     {
         $user = User::findOrFail($userData->id);
@@ -55,6 +77,10 @@ class UserRepository
         return $user;
     }
 
+    /**
+     * @param $userData
+     * @return mixed
+     */
     public function updatePassword($userData)
     {
         $user = User::findOrFail(Auth::id());

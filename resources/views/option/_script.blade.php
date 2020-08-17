@@ -37,7 +37,7 @@
     function initCustomRule() {
         $.validator.addMethod("alphanumericspace", function (value, element) {
             return this.optional(element) || /^[a-zA-Z0-9\s]+$/.test(value);
-        }, 'Hanya alphanumeric dan spasi yang diperbolehkan');
+        }, 'Only can alphabetic and space');
     }
 
     function initUpdatePasswordForm() {
@@ -65,20 +65,6 @@
                 new_password_confirmation: {
                     required: true,
                     equalTo: '#new-password'
-                }
-            },
-            messages: {
-                new_password: {
-                    required: 'Password baru tidak boleh kosong',
-                    mixlength: $.validator.format('Panjang minimal {0} karakter'),
-                    maxlength: $.validator.format('Panjang maksimal {0} karakter')
-                },
-                old_password: {
-                    required: 'Password lama tidak boleh kosong',
-                },
-                new_password_confirmation: {
-                    required: 'Konfirmasi password tidak boleh kosong',
-                    equalTo: 'New Password Confirmation harus sama dengan New Password'
                 }
             },
             invalidHandler: function () {

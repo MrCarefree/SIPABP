@@ -6,8 +6,12 @@ namespace App\Http\Repository;
 use App\ProgramStudy;
 use Illuminate\Support\Facades\Auth;
 
-class ProdiRepository
+class ProdiRepository implements RepositoryInterface
 {
+    /**
+     * @param $prodiData
+     * @return ProgramStudy|mixed
+     */
     public function create($prodiData)
     {
         $programStudy = new ProgramStudy();
@@ -19,16 +23,28 @@ class ProdiRepository
         return $programStudy;
     }
 
-    public function deleteProdiById($id)
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function deleteById($id)
     {
         return ProgramStudy::findOrFail($id)->delete();
     }
 
-    public function getProdiById($id)
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getById($id)
     {
         return ProgramStudy::findOrFail($id);
     }
 
+    /**
+     * @param $prodiData
+     * @return mixed
+     */
     public function update($prodiData)
     {
         $prodi = ProgramStudy::findOrFail($prodiData->id);
@@ -40,6 +56,10 @@ class ProdiRepository
         return $prodi;
     }
 
+    /**
+     * @param $prodiData
+     * @return mixed
+     */
     public function updateKaprodi($prodiData)
     {
         $prodi = ProgramStudy::findOrFail($prodiData->id);
@@ -49,8 +69,16 @@ class ProdiRepository
         return $prodi;
     }
 
+    /**
+     * @return mixed
+     */
     public function getProdiByUser()
     {
         return Auth::user()->programStudies()->get();
+    }
+
+    public function get()
+    {
+        return ProgramStudy::all();
     }
 }

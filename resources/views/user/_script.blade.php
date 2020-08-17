@@ -144,11 +144,20 @@
             serverSide: true,
             ajax: '{{ route('user.datatable') }}',
             columns: [
-                {data: 'name', responsivePriority: 1},
+                {data: 'name', responsivePriority: 0},
                 {data: 'email'},
                 {data: 'username'},
                 {data: 'role'},
-                {data: 'created_at'},
+                {
+                    data: 'created_at', responsivePriority: 1, render: function (data, type, row) {
+                        if (type === 'display') {
+                            date = new Date(data);
+                            return date.toLocaleDateString()
+                        }
+
+                        return data
+                    }
+                },
                 {data: 'action', width: '100px', responsivePriority: 2, orderable: false, searchable: false},
             ]
         });
@@ -161,11 +170,11 @@
     function initCustomRule() {
         $.validator.addMethod("alphanumeric", function (value, element) {
             return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
-        }, 'Hanya alphanumeric yang diperbolehkan');
+        }, 'Only can alphanumeric');
 
         $.validator.addMethod("alphanumericspace", function (value, element) {
             return this.optional(element) || /^[a-zA-Z0-9\s]+$/.test(value);
-        }, 'Hanya alphanumeric dan spasi yang diperbolehkan');
+        }, 'Only can alphanumeric and space');
     }
 
     function initCreateForm() {
@@ -210,29 +219,6 @@
                 },
                 role: {
                     required: true,
-                }
-            },
-            messages: {
-                name: {
-                    required: 'Name tidak boleh kosong',
-                    maxlength: $.validator.format('Panjang maksimal {0} karakter')
-                },
-                email: {
-                    required: 'Email tidak boleh kosong',
-                    email: 'Bukan format email yang benar',
-                    maxlength: $.validator.format('Panjang maksimal {0} karakter')
-                },
-                username: {
-                    required: 'Username tidak boleh kosong',
-                    maxlength: $.validator.format('Panjang maksimal {0} karakter')
-                },
-                password: {
-                    required: 'Password tidak boleh kosong',
-                    mixlength: $.validator.format('Panjang minimal {0} karakter'),
-                    maxlength: $.validator.format('Panjang maksimal {0} karakter')
-                },
-                role: {
-                    required: 'Role tidak boleh kosong',
                 }
             },
             invalidHandler: function () {
@@ -342,32 +328,6 @@
                 },
                 role: {
                     required: true,
-                }
-            },
-            messages: {
-                id: {
-                    required: 'Id tidak boleh kosong',
-                    digits: 'Id hanya boleh angka'
-                },
-                name: {
-                    required: 'Name tidak boleh kosong',
-                    maxlength: $.validator.format('Panjang maksimal {0} karakter')
-                },
-                email: {
-                    required: 'Email tidak boleh kosong',
-                    email: 'Bukan format email yang benar',
-                    maxlength: $.validator.format('Panjang maksimal {0} karakter')
-                },
-                username: {
-                    required: 'Username tidak boleh kosong',
-                    maxlength: $.validator.format('Panjang maksimal {0} karakter')
-                },
-                password: {
-                    mixlength: $.validator.format('Panjang minimal {0} karakter'),
-                    maxlength: $.validator.format('Panjang maksimal {0} karakter')
-                },
-                role: {
-                    required: 'Role tidak boleh kosong',
                 }
             },
             invalidHandler: function () {

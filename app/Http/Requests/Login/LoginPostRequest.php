@@ -28,13 +28,4 @@ class LoginPostRequest extends FormRequest
             'password' => 'required|string'
         ];
     }
-
-    public function messages()
-    {
-        return [
-            'username.required' => 'Username tidak boleh kosong',
-            'username.alpha_num' => 'Username hanya bisa menggunakan huruf dan angka',
-            'password.required' => 'Password tidak boleh kosong'
-        ];
-    }
 }
