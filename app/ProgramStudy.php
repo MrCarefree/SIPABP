@@ -17,4 +17,9 @@ class ProgramStudy extends Model
             ->withPivot('siswa')
             ->withTimestamps();
     }
+
+    public function getLatestSubmissionAttribute()
+    {
+        return $this->submissions->first();
+    }
 }
