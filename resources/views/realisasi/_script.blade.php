@@ -143,18 +143,17 @@
             responsive: true,
             processing: true,
             serverSide: true,
-            order: [[5, 'desc'], [0, 'desc']],
             ajax: '{{ route('realisasi.detail.datatable', ['id' => $pengajuan]) }}',
             columns: [
                 {data: 'nama_barang', responsivePriority: 0},
                 {data: 'image_path'},
-                {data: 'pengajuan_jumlah'},
-                {data: 'jumlah'},
-                {data: 'pengajuan_harga_total'},
-                {data: 'harga_total'},
-                {data: 'realization', orderable: false, searchable: false},
+                {data: 'pengajuan_jumlah', responsivePriority: 3},
+                {data: 'jumlah', responsivePriority: 4},
+                {data: 'pengajuan_harga_total', responsivePriority: 5},
+                {data: 'harga_total', responsivePriority: 6},
+                {data: 'realization', orderable: false, searchable: false, responsivePriority: 2},
                 {data: 'keterangan', width: '150px'},
-                {data: 'action', width: '120px', responsivePriority: 2, orderable: false, searchable: false},
+                {data: 'action', width: '120px', responsivePriority: 1, orderable: false, searchable: false},
             ]
         });
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\RealizationExport;
 use App\Http\Repository\PengajuanRepository;
 use App\Http\Repository\ProdiRepository;
 use App\Http\Repository\RealisasiRepository;
@@ -15,6 +16,7 @@ use App\SubmissionDetail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use NumberFormatter;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -156,5 +158,10 @@ class RealisasiController extends Controller
             return response()->json(['status' => true, 'message' => 'Success updating detail', 'data' => $realisasi['data']], Response::HTTP_OK);
         else
             return response()->json(['status' => false, 'message' => $realisasi['message']], Response::HTTP_BAD_REQUEST);
+    }
+
+    public function export(Submission $id)
+    {
+        return Excel::download(new RealizationExport($id), strtotime('now') . '.xlsx');
     }
 }

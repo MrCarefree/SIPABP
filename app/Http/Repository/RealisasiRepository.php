@@ -126,7 +126,7 @@ class RealisasiRepository
         return $submissions->get();
     }
 
-    public function getBySubmission($submission)
+    public function getBySubmission(Submission $submission)
     {
         return $submission->realizations()->with('submissionDetail.negotiation')->get();
     }

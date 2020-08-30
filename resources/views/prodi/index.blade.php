@@ -59,7 +59,7 @@
                                             <th>Kode Prodi</th>
                                             <th>Nama Prodi</th>
                                             <th>Pagu</th>
-                                            <th>Kaprodi</th>
+                                            <th>Kaprodi/Kajur</th>
                                             <th>Created Date</th>
                                             <th>Action</th>
                                             </thead>

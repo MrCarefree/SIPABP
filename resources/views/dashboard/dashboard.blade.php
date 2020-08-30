@@ -82,7 +82,8 @@
                                                                class="text-muted">
                                                                 <i class="fas fa-eye"></i>
                                                             </a>
-                                                            <a href="#" class="text-muted">
+                                                            <a href="{{ route('realisasi.detail.export', ['id' => $realisasi->latestSubmission->id]) }}"
+                                                               class="text-muted" target="_blank">
                                                                 <i class="fas fa-download"></i>
                                                             </a>
                                                         @endif
@@ -104,7 +105,8 @@
                                                 Prodi {{ ucwords($prodi->nama_prodi) }}</h3>
                                             @if(isset($prodi->latestSubmission))
                                                 <div class="card-tools">
-                                                    <a href="#" class="btn btn-sm btn-tool">
+                                                    <a href="{{ route('realisasi.detail.export', ['id' => $prodi->latestSubmission->id]) }}"
+                                                       class="btn btn-sm btn-tool" target="_blank">
                                                         <i class="fas fa-download"></i>
                                                     </a>
                                                     <a href="{{ route('realisasi.detail', ['id' => $prodi->latestSubmission->id]) }}"
@@ -122,7 +124,7 @@
                                                 </p>
                                                 <p class="d-flex flex-column text-right">
                                                 <span class="font-weight-bold">
-                                                  {{ $prodi->latestSubmission->total_pengajuan_realisasi ?? 0 }} / {{ $prodi->latestSubmission->total_pengajuan ??0 }}
+                                                  {{ $prodi->latestSubmission->total_pengajuan_realisasi ?? 0 }} / {{ $prodi->latestSubmission->total_pengajuan ?? 0 }}
                                                 </span>
                                                     <span
                                                         class="text-muted">TOTAL ALAT & BAHAN PENGAJUAN TEREALISASI</span>

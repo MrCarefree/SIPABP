@@ -36,14 +36,18 @@
                                 <div class="card-header d-flex align-items-center">
                                     <h3 class="card-title">
                                         Realisasi {{ $pengajuan->tahun_akademik . ' Semester ' . $pengajuan->semester }}</h3>
-                                    @if(Auth::user()->role == 'prodi' && $pengajuan->status == 4)
-                                        <div class="ml-auto">
+                                    <div class="ml-auto">
+                                        @if(Auth::user()->role == 'prodi' && $pengajuan->status == 4)
                                             <button type="button" data-toggle="modal" data-target="#modal-add"
                                                     class="btn btn-primary" id="btn-tambah"><i class="fas fa-plus"></i>
                                                 Tambah
                                             </button>
-                                        </div>
-                                    @endif
+                                        @endif
+                                        <a href="{{ route('realisasi.detail.export', ['id' => $pengajuan]) }}"
+                                           class="btn btn-secondary" target="_blank">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </div>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- card-body -->

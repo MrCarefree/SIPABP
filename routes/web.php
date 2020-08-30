@@ -41,6 +41,7 @@ Route::prefix('realisasi')->name('realisasi')->group(function () {
 
     Route::prefix('/{id}')->name('.detail')->group(function () {
         Route::get('', 'RealisasiController@index');
+        Route::get('/export', 'RealisasiController@export')->name('.export');
         Route::get('/datatable', 'RealisasiController@datatable')->name('.datatable');
         Route::get('/get-barang', 'RealisasiController@getBarang')->name('.get_barang');
         Route::get('/get-item', 'RealisasiController@getItem')->name('.get_item');
