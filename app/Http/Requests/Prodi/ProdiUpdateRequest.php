@@ -27,11 +27,10 @@ class ProdiUpdateRequest extends FormRequest
         if ($this->id) {
             $programStudy = ProgramStudy::findOrFail($this->id);
         }
-
         return [
             'id' => ['required', 'present', 'integer'],
-            'kode_prodi' => ['required', 'present', 'max:5', 'unique:program_studies,kode_prodi,' . optional($programStudy)->kode_prodi . ', kode_prodi'],
-            'nama_prodi' => ['required', 'present', 'max:50', 'unique:program_studies,nama_prodi,' . optional($programStudy)->nama_prodi . ', nama_prodi'],
+            'kode_prodi' => ['required', 'present', 'max:5', 'unique:program_studies,kode_prodi,' . optional($programStudy)->kode_prodi . ',kode_prodi'],
+            'nama_prodi' => ['required', 'present', 'max:50', 'unique:program_studies,nama_prodi,' . optional($programStudy)->nama_prodi . ',nama_prodi'],
             'pagu' => ['required', 'present', 'integer'],
         ];
     }
