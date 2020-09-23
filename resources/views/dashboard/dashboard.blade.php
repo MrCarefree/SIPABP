@@ -82,10 +82,12 @@
                                                                class="text-muted">
                                                                 <i class="fas fa-eye"></i>
                                                             </a>
+                                                            @if($terealisasi > 0)
                                                             <a href="{{ route('realisasi.detail.export', ['id' => $realisasi->latestSubmission->id]) }}"
                                                                class="text-muted" target="_blank">
                                                                 <i class="fas fa-download"></i>
                                                             </a>
+                                                            @endif
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -98,6 +100,9 @@
                             </div>
                         @else
                             @foreach($data as $prodi)
+                                @php
+                                    $terealisasi = round((($prodi->latestSubmission->total_realisasi ?? 0) / ($prodi->latestSubmission->pagu ?? 1)) * 100)
+                                @endphp
                                 <div class="col-12 col-md-6">
                                     <div class="card">
                                         <div class="card-header border-0">
@@ -105,10 +110,12 @@
                                                 Prodi {{ ucwords($prodi->nama_prodi) }}</h3>
                                             @if(isset($prodi->latestSubmission))
                                                 <div class="card-tools">
-                                                    <a href="{{ route('realisasi.detail.export', ['id' => $prodi->latestSubmission->id]) }}"
-                                                       class="btn btn-sm btn-tool" target="_blank">
-                                                        <i class="fas fa-download"></i>
-                                                    </a>
+                                                    @if($terealisasi > 0)
+                                                        <a href="{{ route('realisasi.detail.export', ['id' => $prodi->latestSubmission->id]) }}"
+                                                           class="btn btn-sm btn-tool" target="_blank">
+                                                            <i class="fas fa-download"></i>
+                                                        </a>
+                                                    @endif
                                                     <a href="{{ route('realisasi.detail', ['id' => $prodi->latestSubmission->id]) }}"
                                                        class="btn btn-sm btn-tool">
                                                         <i class="fas fa-eye"></i>
@@ -150,9 +157,6 @@
                                                 </p>
                                                 <p class="d-flex flex-column text-right">
                                                 <span class="font-weight-bold">
-                                                    @php
-                                                        $terealisasi = round((($prodi->latestSubmission->total_realisasi ?? 0) / ($prodi->latestSubmission->pagu ?? 1)) * 100)
-                                                    @endphp
                                                     {{ $terealisasi }}%
                                                 </span>
                                                     <span class="text-muted">PERSENTASI PENGAJUAN TEREALISASI</span>
