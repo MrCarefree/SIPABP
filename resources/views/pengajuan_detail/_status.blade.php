@@ -25,9 +25,9 @@
                         <label for="status-status">Status</label>
                         <select name="status" id="status-status" class="custom-select">
                             <option value="" selected disabled>Please select status</option>
-                            <option value="1">Accept</option>
-                            <option value="2">Edit</option>
-                            <option value="3">Cancel</option>
+                            <option value="1">Diterima</option>
+                            <option value="2">Dievaluasi</option>
+                            <option value="3">Ditolak</option>
                         </select>
                     </div>
                     <div class="form-group" style="display: none">
