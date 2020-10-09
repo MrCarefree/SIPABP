@@ -28,7 +28,7 @@ class DashboardController extends Controller
             $data = ProgramStudy::with(['submissions' => function ($query) {
                 $query->withCount(['realizations as total_realisasi' => function ($query) {
                     $query->select(DB::raw('sum(harga_total)'));
-                }])->where('status', 4)->latest()->first();
+                }])->where('status', 4)->latest();
             }])->get();
         } else {
             $data = $user->programStudies()->with(['submissions' => function ($query) {
@@ -43,10 +43,9 @@ class DashboardController extends Controller
                         $query->whereNull('submission_detail_id');
                     }, 'realizations as total_realisasi' => function ($query) {
                         $query->select(DB::raw('sum(harga_total)'));
-                    }])->where('status', 4)->latest()->first();
+                    }])->where('status', 4)->latest();
             }])->get();
         }
-
         return view('dashboard.dashboard', compact('data'));
     }
 }

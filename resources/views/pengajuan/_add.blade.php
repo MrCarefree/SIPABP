@@ -42,7 +42,7 @@
                         <label for="add-siswa">Siswa</label>
                         <input type="text" name="siswa" id="add-siswa" class="form-control"
                                aria-describedby="siswaHelp">
-                        <small id="siswaHelp" class="form-text text-muted">siswa prodi 1, siswa prodi 2, dst</small>
+                        <small id="siswaHelp" class="form-text text-muted">Siswa dari masing - masing prodi pisahkan dengan tanda koma (,)</small>
                     </div>
                 </form>
             </div>
